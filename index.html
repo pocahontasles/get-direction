@@ -56,16 +56,27 @@
         };
         var map = new google.maps.Map(document.getElementById('map'), myOptions);
         var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer({
+        var directionsDisplay = new google.maps.DirectionsRenderer({ //set map renderer
             map: map
         });
-    
+        /*markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            label: "A",
+            map: map
+        });
+        markerB = new google.maps.Marker({
+            position: pointB,
+            title: "point B",
+            label: "B",
+            map: map
+        });*/
         var onClickHandler = function () {
             var nauchka = document.getElementById('pointA');
             var dvoretsTruda = document.getElementById('pointB');
             if (nauchka.value === 'Nauchka' && dvoretsTruda.value === 'Dvorets truda') {
                 calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
-            } else{directionsDisplay.set('directions', null);}
+            } else{directionsDisplay.setMap(null);}
             };
             document.getElementById('onClickBtn').addEventListener('click', onClickHandler);
 
@@ -79,9 +90,9 @@
             avoidTolls: true,
             avoidHighways: false,
             travelMode: google.maps.TravelMode.WALKING
-        }, function (response, status) {
+        }, function (result, status) {
             if (status === google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
+                directionsDisplay.setDirections(result);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -89,7 +100,7 @@
 
     }
 
-    showMap();
+    //showMap();
 
 </script>
 
